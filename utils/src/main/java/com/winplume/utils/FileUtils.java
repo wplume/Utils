@@ -1,6 +1,5 @@
 package com.winplume.utils;
 
-import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -8,12 +7,13 @@ import androidx.annotation.RequiresApi;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class FileUtils {
 
@@ -34,7 +34,7 @@ public class FileUtils {
                 sb.append(line);
             }
             res = sb.toString();
-        }  finally {
+        } finally {
             if (is != null) {
                 try {
                     is.close();
@@ -44,5 +44,29 @@ public class FileUtils {
             }
         }
         return res;
+    }
+
+    public static void writeToFile(String s, String path) throws IOException {
+        try (FileOutputStream os = new FileOutputStream(new File(path))) {
+            os.write(s.getBytes());
+            os.flush();
+        }
+    }
+
+    public static void fileAppend(String append, String path) throws IOException {
+
+        try {
+            final File file = new File(path);
+            FileOutputStream fos = new FileOutputStream(file, true);
+            fos.write(append.getBytes());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void fileAppend26(String append, String Path) throws IOException {
+        Files.write(Paths.get(Path), append.getBytes(), StandardOpenOption.APPEND);
     }
 }
