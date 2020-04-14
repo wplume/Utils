@@ -1,8 +1,8 @@
-package com.winplume.utils;
+package com.windplume.utils;
 
 public class ByteOperationUtils {
     public static int func(byte height, byte low) {
-        return (height & 0xff) << 8 + low & 0xff;
+        return ((height & 0xff) << 8) + (low & 0xff);
     }
 
 

@@ -1,4 +1,4 @@
-package com.winplume.utils;
+package com.windplume.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
