@@ -1,5 +1,7 @@
 package com.windplume.utils;
 
+import android.os.Process;
+
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+        e.printStackTrace();
         StringBuilder sb = new StringBuilder();
         sb.append(e.getMessage());
 
@@ -46,5 +49,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        Process.killProcess(Process.myPid());
+        System.exit(0);
     }
 }
